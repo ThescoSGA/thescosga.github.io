@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MONITORAMENTO DAS INFREQUÊNCIAS</title>
+  <style>
+    /* Estilo base */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    
+    .header {
+      margin-top: 20px;
+    }
+    
+    .header h2 {
+      font-size: 1.5rem;
+      margin: 0;
+    }
+    
+    .header h3 {
+      font-size: 1.3rem;
+      margin: 0;
+    }
+    
+    /* Container centralizado com largura máxima e responsividade */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+    
+    /* Menus e inputs - organizados em linha */
+    .menu-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 10px;
+      margin: 15px 0;
+    }
+    
+    .menu-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .menu-item label {
+      font-size: 0.9rem;
+      margin-bottom: 3px;
+    }
+    
+    .header-input {
+      width: 100%;
+      padding: 5px;
+      text-align: center;
+    }
+    
+    /* Espaçamentos específicos para cada menu */
+    .escola {
+      max-width: 300px;
+    }
+    
+    .ano {
+      max-width: 200px;
+    }
+    
+    .pequeno {
+      max-width: 100px;
+    }
+    
+    /* Tabela responsiva */
+    .table-responsive {
+      overflow-x: auto;
+      margin-top: 20px;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 800px;
+    }
+    
+    th, td {
+      border: 1px solid #000;
+      padding: 5px;
+      text-align: center;
+      font-size: 0.7rem; /* Fonte reduzida para os dias */
+    }
+    
+    /* Congelar a primeira coluna (numeração) */
+    th.numero, td.numero {
+      position: sticky;
+      left: 0;
+      background: #f4f4f4;
+      z-index: 3;
+      min-width: 50px;
+    }
+    
+    /* Congelar a segunda coluna (Nome do Aluno) */
+    th.nome, td.nome-aluno {
+      position: sticky;
+      left: 50px; /* Igual à largura da coluna de numeração */
+      background: #fff;
+      z-index: 2;
+      min-width: 250px;
+    }
+    
+    /* Diminui a fonte dos selects na tabela para maximizar o espaço */
+    .table-responsive select {
+      font-size: 0.65rem;
+    }
+    
+    /* Responsividade para telas menores */
+    @media (max-width: 768px) {
+      th, td {
+        padding: 3px;
+        font-size: 0.65rem;
+      }
+      
+      .header h2 {
+        font-size: 1.3rem;
+      }
+      
+      .header h3 {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h2>MONITORAMENTO DAS INFREQUÊNCIAS</h2>
+      <h3>SECRETARIA MUNICIPAL DE EDUCAÇÃO DE SÃO GONÇALO DO AMARANTE</h3>
+    </div>
+    
+    <!-- Menus suspensos organizados em uma linha -->
+    <div class="menu-container">
+      <div class="menu-item">
+        <label>Escola</label>
+        <select class="header-input escola" id="escola-select">
+          <option value="">Selecione a escola</option>
+          <option>BETEL (ANEXO EUCLIDES PEREIRA GOMES)</option>
+          <option>CEDI A CRIANÇA E O SABER</option>
+          <option>CEDI ARCO IRIS</option>
+          <option>CEDI CHAPEUZINHO VERMELHO</option>
+          <option>CEDI CIRANDA CIRANDINHA</option>
+          <option>CEDI DANIEL CORREIA CARVALHO</option>
+          <option>CEDI EDUARDO PAZ BARRETO</option>
+          <option>CEDI ESTRELA DALVA</option>
+          <option>CEDI GUIOMAR MENDES</option>
+          <option>CEDI IRMÃ ZULMIRA</option>
+          <option>IOÃO ALBERTO DE SOUSA (ANEXO ESTER DE PONTES)</option>
+          <option>CEDI IOAO GALDINO MARQUES</option>
+          <option>CEDI IOAO MOREIRA DA SILVA</option>
+          <option>CEDI LAPIS COLORIDO</option>
+          <option>CEDI MARIA ERCILIA MENDES</option>
+          <option>CEDI PARAISO DA CRIANÇA</option>
+          <option>CEDI PLÁCIDO ALCANTARA</option>
+          <option>CEDI PROFª SILVANI DE MORAIS</option>
+          <option>CEDI RAIO DE SOL</option>
+          <option>CEDI RAIMUNDO MOREIRA DE ABREU</option>
+          <option>CEDI TIA BARBOSA</option>
+          <option>CEDI TIA ELIANE</option>
+          <option>CEDI TIA FAUSTA</option>
+          <option>CEDI TIA MAZINHA</option>
+          <option>CEDI TIA MAZINHA - ANEXO</option>
+          <option>CEDI TIA TETÉ</option>
+          <option>CEDI VIVA CRIANÇA</option>
+          <option>CEI MARIA SOARES ALMEIDA</option>
+          <option>CEI FRANCISCO MARTINS</option>
+          <option>CEI ÁUREA LOPES PITOMBEIRA</option>
+          <option>CEIA WALTER RAMOS DE ARAÚIO</option>
+          <option>EEF ADELINO ALCÂNTARA FILHO</option>
+          <option>EEF ALBA HERCULANO ARAÚIO</option>
+          <option>EEF DEPUTADO LEORNE BELEM</option>
+          <option>EEF DONA FILOMENA MARTINS</option>
+          <option>EEF ESTER DE PONTES BARROSO</option>
+          <option>EEF EUCLIDES PEREIRA GOMES</option>
+          <option>EEF FERNANDO ALCÂNTARA MOTA</option>
+          <option>EEF GERTRUDES PRATA LIMA</option>
+          <option>EEF GOV TASSO IEREISSATI</option>
+          <option>EEF IOÃO MOREIRA BARROSO</option>
+          <option>EEF IOÃO PINTO MAGALHÃES</option>
+          <option>EEF IOAQUIM PACHECO DE MENEZES</option>
+          <option>EEF IOSÉ MARIA BARROS DE PINHO</option>
+          <option>EEF IOSÉ PEREIRA BARROS</option>
+          <option>EEF LEONICE ALCÂNTARA BRASILEIRO</option>
+          <option>EEF MANOEL PEREIRA DE BRITO</option>
+          <option>EEF MARIA DO SOCORRO GOUVEIA</option>
+          <option>EEF POETISA ABIGAIL SAMPAIO</option>
+          <option>EEF PORFÍRIO DE ARAÚIO</option>
+          <option>EEF SONHO DE CRIANÇA</option>
+        </select>
+      </div>
+      
+      <div class="menu-item">
+        <label>Ano (série)</label>
+        <select class="header-input ano" id="ano-select">
+          <option value="">Selecione o ano</option>
+          <option>CRECHE 2 ANOS</option>
+          <option>CRECHE 3 ANOS</option>
+          <option>PRÉ-ESCOLA 4 ANOS</option>
+          <option>PRÉ-ESCOLA 5 ANOS</option>
+          <option>1º ANO</option>
+          <option>2º ANO</option>
+          <option>3º ANO</option>
+          <option>4º ANO</option>
+          <option>5º ANO</option>
+          <option>6º ANO</option>
+          <option>7º ANO</option>
+          <option>8º ANO</option>
+          <option>9º ANO</option>
+        </select>
+      </div>
+      
+      <div class="menu-item">
+        <label>Turma</label>
+        <select class="header-input pequeno" id="turma-select">
+          <option value="">Selecione a turma</option>
+          <option>A</option>
+          <option>B</option>
+          <option>C</option>
+          <option>D</option>
+          <option>E</option>
+          <option>F</option>
+          <option>G</option>
+          <option>H</option>
+        </select>
+      </div>
+      
+      <div class="menu-item">
+        <label>Turno</label>
+        <select class="header-input pequeno" id="turno-select">
+          <option value="">Selecione o turno</option>
+          <option>MANHÃ</option>
+          <option>TARDE</option>
+          <option>INTEGRAL</option>
+        </select>
+      </div>
+      
+      <div class="menu-item">
+        <label>Mês</label>
+        <select class="header-input" id="month-select">
+          <option value="1">Janeiro</option>
+          <option value="2">Fevereiro</option>
+          <option value="3">Março</option>
+          <option value="4">Abril</option>
+          <option value="5">Maio</option>
+          <option value="6">Junho</option>
+          <option value="7">Julho</option>
+          <option value="8">Agosto</option>
+          <option value="9">Setembro</option>
+          <option value="10">Outubro</option>
+          <option value="11">Novembro</option>
+          <option value="12">Dezembro</option>
+        </select>
+      </div>
+    </div>
+    
+    <!-- Tabela responsiva -->
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr id="table-header">
+            <th class="numero">#</th>
+            <th class="nome">Nome do Aluno</th>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+          <!-- As linhas serão geradas dinamicamente -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <script>
+    // Variáveis globais
+    let namesList = [];
+    let attendanceRecords = {};   // Registros dos selects de faltas, organizados por chave (ano-mês)
+    let studentNameOverrides = {}; // Registros de nomes editados (por linha)
+
+    // Funções para carregar/salvar dados do cabeçalho
+    function saveHeaderValue(id, keyName) {
+      const val = document.getElementById(id).value;
+      localStorage.setItem(keyName, val);
+    }
+
+    function loadHeaderValue(id, keyName) {
+      const saved = localStorage.getItem(keyName);
+      if (saved) {
+        document.getElementById(id).value = saved;
+      }
+    }
+
+    // Carrega registros de faltas e nomes editados
+    function loadAttendanceRecords() {
+      const stored = localStorage.getItem("attendanceRecords");
+      attendanceRecords = stored ? JSON.parse(stored) : {};
+    }
+    function saveAttendanceRecords() {
+      localStorage.setItem("attendanceRecords", JSON.stringify(attendanceRecords));
+    }
+    function loadStudentNameOverrides() {
+      const stored = localStorage.getItem("studentNameOverrides");
+      studentNameOverrides = stored ? JSON.parse(stored) : {};
+    }
+    function saveStudentNameOverrides() {
+      localStorage.setItem("studentNameOverrides", JSON.stringify(studentNameOverrides));
+    }
+
+    // Ao mudar um select do cabeçalho, salva o valor
+    document.getElementById("escola-select").addEventListener("change", function() {
+      saveHeaderValue("escola-select", "selectedEscola");
+    });
+    document.getElementById("ano-select").addEventListener("change", function() {
+      saveHeaderValue("ano-select", "selectedAno");
+    });
+    document.getElementById("turma-select").addEventListener("change", function() {
+      saveHeaderValue("turma-select", "selectedTurma");
+    });
+    document.getElementById("turno-select").addEventListener("change", function() {
+      saveHeaderValue("turno-select", "selectedTurno");
+    });
+    // Para o mês, ao mudar também atualiza a tabela
+    document.getElementById("month-select").addEventListener("change", function() {
+      saveHeaderValue("month-select", "selectedMonth");
+      updateDays();
+    });
+
+    // Busca os nomes dos alunos na planilha do Google
+    function fetchStudentNames() {
+      const sheetID = "1gRmIolLCYFhJvvSO-JNs9DV3INTaAxPBW-eey_Tw0N8";
+      const sheetName = "nome";
+      const url = `https://docs.google.com/spreadsheets/d/${sheetID}/gviz/tq?tqx=out:json&sheet=${sheetName}`;
+      
+      fetch(url)
+        .then(response => response.text())
+        .then(data => {
+          const jsonData = JSON.parse(data.substring(47, data.length - 2));
+          const rows = jsonData.table.rows;
+          namesList = rows.map(row => row.c[0] && row.c[0].v ? row.c[0].v : "");
+          updateDays();
+        })
+        .catch(error => {
+          console.error("Erro ao buscar nomes:", error);
+          updateDays();
+        });
+    }
+
+    // Define a cor do select conforme o valor
+    function setSelectColor(sel) {
+      if (sel.value === "F") {
+        sel.style.color = "red";
+      } else if (sel.value === "P") {
+        sel.style.color = "blue";
+      } else if (sel.value === "FJ") {
+        sel.style.color = "green";
+      } else {
+        sel.style.color = "inherit";
+      }
+    }
+
+    // Recalcula o total de faltas na linha
+    function recalcRow(row) {
+      let count = 0;
+      row.querySelectorAll("select").forEach(sel => {
+        setSelectColor(sel);
+        if (sel.value === "F") count++;
+      });
+      row.querySelector(".total-faltas").innerText = count;
+    }
+
+    // Adiciona event listeners aos selects da tabela para salvar os registros
+    function addSelectListeners(currentKey) {
+      document.querySelectorAll("#table-body tr").forEach(rowElement => {
+        rowElement.querySelectorAll("select").forEach(sel => {
+          sel.addEventListener("change", function() {
+            const rowIndex = sel.getAttribute("data-row");
+            const dayIndex = sel.getAttribute("data-day");
+            if (!attendanceRecords[currentKey]) {
+              attendanceRecords[currentKey] = {};
+            }
+            if (!attendanceRecords[currentKey][rowIndex]) {
+              attendanceRecords[currentKey][rowIndex] = {};
+            }
+            attendanceRecords[currentKey][rowIndex][dayIndex] = sel.value;
+            saveAttendanceRecords();
+            recalcRow(rowElement);
+          });
+          setSelectColor(sel);
+        });
+        recalcRow(rowElement);
+      });
+    }
+
+    // Adiciona event listener aos nomes editáveis para salvar alterações
+    function addNameEditListeners() {
+      document.querySelectorAll(".nome-aluno").forEach((cell, index) => {
+        cell.addEventListener("blur", function() {
+          // O índice da linha é (index+1)
+          studentNameOverrides[index + 1] = cell.innerText;
+          saveStudentNameOverrides();
+        });
+      });
+    }
+
+    // Monta o cabeçalho e as linhas da tabela (baseado no mês selecionado)
+    function updateDays() {
+      // Recupera o mês selecionado (se não houver, assume "1")
+      const month = document.getElementById("month-select").value || "1";
+      const year = 2025; // Ano fixo para cálculo do calendário
+      const daysInMonth = new Date(year, month, 0).getDate();
+      const daysOfWeek = ["DOM", "SEG", "TER", "QUA", "QUI", "SEX", "SAB"];
+      
+      const currentKey = `${year}-${month}`;
+      
+      // Monta o cabeçalho da tabela
+      let header = "<th class='numero'>#</th><th class='nome'>Nome do Aluno</th>";
+      for (let i = 1; i <= daysInMonth; i++) {
+        const date = new Date(year, month - 1, i);
+        const day = daysOfWeek[date.getDay()];
+        header += `<th>${i} (${day})</th>`;
+      }
+      header += "<th>Total de Faltas</th>";
+      document.getElementById("table-header").innerHTML = header;
+      
+      // Monta as 45 linhas da tabela
+      let body = "";
+      for (let i = 1; i <= 45; i++) {
+        // Se houver um nome editado para essa linha, usa-o; caso contrário, usa o da planilha (se disponível)
+        let studentName = studentNameOverrides[i] || ((i - 1) < namesList.length ? namesList[i - 1] : "");
+        body += `<tr>
+                   <td class="numero">${i}</td>
+                   <td contenteditable="true" class="nome-aluno">${studentName}</td>`;
+        for (let j = 1; j <= daysInMonth; j++) {
+          let savedValue = "";
+          if (attendanceRecords[currentKey] && attendanceRecords[currentKey][i]) {
+            savedValue = attendanceRecords[currentKey][i][j] || "";
+          }
+          body += `<td>
+                     <select data-row="${i}" data-day="${j}">`;
+          const options = [
+            { value: "P", color: "blue" },
+            { value: "F", color: "red" },
+            { value: "FJ", color: "green" }
+          ];
+          options.forEach(opt => {
+            const selected = savedValue === opt.value ? "selected" : "";
+            body += `<option value="${opt.value}" ${selected} style="color: ${opt.color};">${opt.value}</option>`;
+          });
+          body += `</select>
+                   </td>`;
+        }
+        body += `<td class="total-faltas">0</td>
+                 </tr>`;
+      }
+      document.getElementById("table-body").innerHTML = body;
+      
+      addSelectListeners(currentKey);
+      addNameEditListeners();
+    }
+
+    // Ao carregar a página, carrega os dados do localStorage e dos cabeçalhos, e monta a tabela
+    window.onload = function() {
+      loadAttendanceRecords();
+      loadStudentNameOverrides();
+      loadHeaderValue("escola-select", "selectedEscola");
+      loadHeaderValue("ano-select", "selectedAno");
+      loadHeaderValue("turma-select", "selectedTurma");
+      loadHeaderValue("turno-select", "selectedTurno");
+      loadHeaderValue("month-select", "selectedMonth");
+      
+      // Busca os nomes dos alunos e atualiza a tabela
+      fetchStudentNames();
+    };
+  </script>
+</body>
+</html>
